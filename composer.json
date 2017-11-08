@@ -14,10 +14,7 @@
         "source": "https://github.com/zendframework/zend-auradi-config",
         "rss": "https://github.com/zendframework/zend-auradi-config/releases.atom",
         "slack": "https://zendframework-slack.herokuapp.com",
-        "forum": "https://discourse.zendframework.com/c/questions"
-    },
-    "config": {
-        "sort-packages": true
+        "forum": "https://discourse.zendframework.com/c/questions/components"
     },
     "require": {
         "php": "^5.6 || ^7.0",
@@ -39,6 +36,9 @@
         "psr-4": {
             "ZendTest\\AuraDi\\Config\\": "test"
         }
+    },
+    "config": {
+        "sort-packages": true
     },
     "scripts": {
         "check": [
