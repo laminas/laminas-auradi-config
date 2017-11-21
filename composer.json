@@ -1,8 +1,6 @@
 {
-    "name": "webimpress/zend-auradi-config",
+    "name": "zendframework/zend-auradi-config",
     "description": "PSR-11 Aura.DI container configurator for ZF applications",
-    "type": "library",
-    "homepage": "https://github.com/webimpress/zend-auradi-config",
     "license": "BSD-3-Clause",
     "keywords": [
         "zf",
@@ -12,18 +10,18 @@
         "psr-11"
     ],
     "support": {
-        "issues": "https://github.com/webimpress/zend-auradi-config/issues",
-        "source": "https://github.com/webimpress/zend-auradi-config"
-    },
-    "config": {
-        "sort-packages": true
+        "issues": "https://github.com/zendframework/zend-auradi-config/issues",
+        "source": "https://github.com/zendframework/zend-auradi-config",
+        "rss": "https://github.com/zendframework/zend-auradi-config/releases.atom",
+        "slack": "https://zendframework-slack.herokuapp.com",
+        "forum": "https://discourse.zendframework.com/c/questions/components"
     },
     "require": {
         "php": "^5.6 || ^7.0",
         "aura/di": "^3.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^5.7.22 || ^6.3.1",
+        "phpunit/phpunit": "^5.7.23 || ^6.4.3",
         "zendframework/zend-coding-standard": "~1.0.0"
     },
     "conflict": {
@@ -38,6 +36,9 @@
         "psr-4": {
             "ZendTest\\AuraDi\\Config\\": "test"
         }
+    },
+    "config": {
+        "sort-packages": true
     },
     "scripts": {
         "check": [

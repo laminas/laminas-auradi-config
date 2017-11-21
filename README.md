@@ -1,7 +1,7 @@
 # zend-auradi-config
 
-[![Build Status](https://secure.travis-ci.org/webimpress/zend-auradi-config.svg?branch=master)](https://secure.travis-ci.org/webimpress/zend-auradi-config)
-[![Coverage Status](https://coveralls.io/repos/github/webimpress/zend-auradi-config/badge.svg?branch=master)](https://coveralls.io/github/webimpress/zend-auradi-config?branch=master)
+[![Build Status](https://secure.travis-ci.org/zendframework/zend-auradi-config.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-auradi-config)
+[![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-auradi-config/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-auradi-config?branch=master)
 
 This library provides utilities to configure
 [PSR-11](http://www.php-fig.org/psr/psr-11/)
@@ -13,7 +13,7 @@ using ZendFramework ServiceManager configuration.
 Run the following to install this library:
 
 ```bash
-$ composer require webimpress/zend-auradi-config
+$ composer require zendframework/zend-auradi-config
 ```
 
 ## Configuration
@@ -67,7 +67,7 @@ The `dependencies` sub associative array can contain the following keys:
 
 First you have to install the library:
 ```bash
-$ composer require webimpress/zend-auradi-config
+$ composer require zendframework/zend-auradi-config
 ```
 
 Then replace contents of `config/container.php` with the following:
