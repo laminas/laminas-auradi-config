@@ -1,8 +1,9 @@
 {
     "name": "zendframework/zend-auradi-config",
-    "description": "PSR-11 Aura.DI container configurator for ZF applications",
+    "description": "PSR-11 Aura.DI container configurator for ZF and Expressive applications",
     "license": "BSD-3-Clause",
     "keywords": [
+        "expressive",
         "zf",
         "zendframework",
         "aura di",
@@ -14,7 +15,7 @@
         "source": "https://github.com/zendframework/zend-auradi-config",
         "rss": "https://github.com/zendframework/zend-auradi-config/releases.atom",
         "slack": "https://zendframework-slack.herokuapp.com",
-        "forum": "https://discourse.zendframework.com/c/questions/components"
+        "forum": "https://discourse.zendframework.com/c/questions/expressive"
     },
     "require": {
         "php": "^5.6 || ^7.0",
