@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-config".
 
-## 0.2.0 - TBD
+## 0.2.0 - 2017-11-21
 
 ### Added
 
@@ -12,9 +12,7 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 ### Changed
 
-- [#2](https://github.com/webimpress/zend-auradi-config/pull/2) moves the library to
-  `zendframework` organization; the package name was changed to
-  "zendframework/zend-auradi-config"; the namespace remains the same.
+- Renames the package to zendframework/zend-auradi-config.
 
 ### Deprecated
 
