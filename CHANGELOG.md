@@ -1,6 +1,10 @@
 # Changelog
 
-## 0.1.2 - TBD
+All notable changes to this project will be documented in this file, in reverse chronological order by release.
+
+Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-config".
+
+## 0.2.0 - 2017-11-21
 
 ### Added
 
@@ -8,7 +12,7 @@
 
 ### Changed
 
-- Nothing.
+- Renames the package to zendframework/zend-auradi-config.
 
 ### Deprecated
 
