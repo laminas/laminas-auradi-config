@@ -5,7 +5,6 @@ language: php
 cache:
   directories:
     - $HOME/.composer/cache
-    - vendor
 
 env:
   global:
