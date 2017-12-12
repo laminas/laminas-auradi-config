@@ -9,12 +9,13 @@ declare(strict_types=1);
 
 namespace Zend\AuraDi\Config;
 
+use Aura\Di\Container;
 use Aura\Di\ContainerBuilder;
 use Aura\Di\ContainerConfigInterface;
 
 class ContainerFactory
 {
-    public function __invoke(ContainerConfigInterface $config)
+    public function __invoke(ContainerConfigInterface $config) : Container
     {
         $builder = new ContainerBuilder();
 

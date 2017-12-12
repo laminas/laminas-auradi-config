@@ -128,7 +128,7 @@ class Config implements ContainerConfigInterface
      * @return array List of dependencies minus any services, factories, or
      *     invokables that match services using delegator factories.
      */
-    private function marshalDelegators(Container $container, array $dependencies)
+    private function marshalDelegators(Container $container, array $dependencies) : array
     {
         foreach ($dependencies['delegators'] as $service => $delegatorNames) {
             $factory = null;
