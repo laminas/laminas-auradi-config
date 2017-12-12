@@ -57,10 +57,9 @@ class DelegatorFactory
     /**
      * Build the instance, invoking each delegator with the result of the previous.
      *
-     * @param string $serviceName
      * @return mixed
      */
-    public function build(Container $container, $serviceName)
+    public function build(Container $container, string $serviceName)
     {
         $factory = $this->factory;
         return array_reduce(
