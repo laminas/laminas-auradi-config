@@ -90,7 +90,7 @@ class Config implements ContainerConfigInterface
                 if (! $container->has($factory)) {
                     $container->set($factory, $container->lazyNew($factory));
                 }
-                $container->set($service, $container->lazyGetCall($factory, '__invoke', $container));
+                $container->set($service, $container->lazyGetCall($factory, '__invoke', $container, $service));
             }
         }
 
