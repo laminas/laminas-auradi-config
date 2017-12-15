@@ -10,6 +10,7 @@ namespace ZendTest\AuraDi\Config;
 use Aura\Di\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
 use Zend\AuraDi\Config\Config;
+use ZendTest\AuraDi\Config\TestAsset\FactoryWithName;
 
 class ConfigTest extends TestCase
 {
@@ -215,12 +216,7 @@ class ConfigTest extends TestCase
 
     public function testFactoryGetsServiceName()
     {
-        $factory = new class {
-            public function __invoke()
-            {
-                return func_get_args();
-            }
-        };
+        $factory = new FactoryWithName();
 
         $dependencies = [
             'services'  => [
