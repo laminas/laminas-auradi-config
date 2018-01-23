@@ -27,6 +27,30 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 - Nothing.
 
+## 0.2.1 - 2018-01-23
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#5](https://github.com/zendframework/zend-auradi-config/pull/5) fixes an
+  issue whereby factories would not receive the service name as the second
+  argument, preventing their re-use for additional services.
+
 ## 0.2.0 - 2017-11-21
 
 ### Added
