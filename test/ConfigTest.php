@@ -10,6 +10,7 @@ namespace ZendTest\AuraDi\Config;
 use Aura\Di\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
 use Zend\AuraDi\Config\Config;
+use ZendTest\AuraDi\Config\TestAsset\FactoryWithName;
 
 class ConfigTest extends TestCase
 {
@@ -211,5 +212,26 @@ class ConfigTest extends TestCase
             ],
             $service->injected
         );
+    }
+
+    public function testFactoryGetsServiceName()
+    {
+        $factory = new FactoryWithName();
+
+        $dependencies = [
+            'services'  => [
+                'factory' => $factory,
+            ],
+            'factories' => [
+                'foo-bar' => 'factory',
+            ],
+        ];
+
+        $container = $this->builder->newConfiguredInstance([new Config(['dependencies' => $dependencies])]);
+        $args = $container->get('foo-bar');
+
+        self::assertCount(2, $args);
+        self::assertSame($container, array_shift($args));
+        self::assertEquals('foo-bar', array_shift($args));
     }
 }
