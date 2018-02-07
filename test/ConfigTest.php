@@ -234,4 +234,39 @@ class ConfigTest extends TestCase
         self::assertSame($container, array_shift($args));
         self::assertEquals('foo-bar', array_shift($args));
     }
+
+    public function testInvokableWithAlias()
+    {
+        $dependencies = [
+            'invokables' => [
+                TestAsset\Service::class,
+            ],
+        ];
+
+        $container = $this->builder->newConfiguredInstance([new Config(['dependencies' => $dependencies])]);
+
+        self::assertTrue($container->has(TestAsset\Service::class));
+        $service = $container->get(TestAsset\Service::class);
+        self::assertInstanceOf(TestAsset\Service::class, $service);
+        self::assertTrue($container->has('0'));
+    }
+
+    public function testInvokableWithoutAlias()
+    {
+        $dependencies = [
+            'invokables' => [
+                'alias' => TestAsset\Service::class,
+            ],
+        ];
+
+        $container = $this->builder->newConfiguredInstance([new Config(['dependencies' => $dependencies])]);
+
+        self::assertTrue($container->has('alias'));
+        $service = $container->get('alias');
+        self::assertInstanceOf(TestAsset\Service::class, $service);
+        self::assertTrue($container->has(TestAsset\Service::class));
+        $originService = $container->get(TestAsset\Service::class);
+        self::assertInstanceOf(TestAsset\Service::class, $originService);
+        self::assertSame($service, $originService);
+    }
 }
