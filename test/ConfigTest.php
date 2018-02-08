@@ -235,7 +235,7 @@ class ConfigTest extends TestCase
         self::assertEquals('foo-bar', array_shift($args));
     }
 
-    public function testInvokableWithAlias()
+    public function testInvokableWithoutAlias()
     {
         $dependencies = [
             'invokables' => [
@@ -251,7 +251,7 @@ class ConfigTest extends TestCase
         self::assertTrue($container->has('0'));
     }
 
-    public function testInvokableWithoutAlias()
+    public function testInvokableWithAlias()
     {
         $dependencies = [
             'invokables' => [
