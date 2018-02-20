@@ -12,10 +12,14 @@ namespace ZendTest\AuraDi\Config;
 use Psr\Container\ContainerInterface;
 use Zend\AuraDi\Config\Config;
 use Zend\AuraDi\Config\ContainerFactory;
+use Zend\ContainerTest\AliasTestTrait;
+use Zend\ContainerTest\FactoryTestTrait;
 use Zend\ContainerTest\InvokableTestTrait;
 
 class ContainerTest extends \Zend\ContainerTest\ContainerTest
 {
+    use AliasTestTrait;
+    use FactoryTestTrait;
     use InvokableTestTrait;
 
     protected function createContainer(array $config) : ContainerInterface

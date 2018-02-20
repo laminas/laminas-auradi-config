@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-auradi-config for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (https://www.zend.com)
+ * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
@@ -12,7 +12,6 @@ namespace ZendTest\AuraDi\Config;
 use Aura\Di\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
 use Zend\AuraDi\Config\Config;
-use ZendTest\AuraDi\Config\TestAsset\FactoryWithName;
 
 use function array_shift;
 
@@ -54,54 +53,6 @@ class ConfigTest extends TestCase
 
         self::assertTrue($container->has('foo-bar'));
         self::assertSame($myService, $container->get('foo-bar'));
-    }
-
-    public function testInjectServiceFactory()
-    {
-        $factory = new TestAsset\Factory();
-
-        $dependencies = [
-            'services'  => [
-                'factory' => $factory,
-            ],
-            'factories' => [
-                'foo-bar' => 'factory',
-            ],
-        ];
-
-        $container = $this->builder->newConfiguredInstance([new Config(['dependencies' => $dependencies])]);
-
-        self::assertTrue($container->has('factory'));
-        self::assertTrue($container->has('foo-bar'));
-        self::assertInstanceOf(TestAsset\Service::class, $container->get('foo-bar'));
-    }
-
-    public function testInjectInvokableFactory()
-    {
-        $dependencies = [
-            'factories' => [
-                'foo-bar' => TestAsset\Factory::class,
-            ],
-        ];
-
-        $container = $this->builder->newConfiguredInstance([new Config(['dependencies' => $dependencies])]);
-
-        self::assertTrue($container->has('foo-bar'));
-        self::assertInstanceOf(TestAsset\Service::class, $container->get('foo-bar'));
-    }
-
-    public function testInjectInvokable()
-    {
-        $dependencies = [
-            'invokables' => [
-                'foo-bar' => TestAsset\Service::class,
-            ],
-        ];
-
-        $container = $this->builder->newConfiguredInstance([new Config(['dependencies' => $dependencies])]);
-
-        self::assertTrue($container->has('foo-bar'));
-        self::assertInstanceOf(TestAsset\Service::class, $container->get('foo-bar'));
     }
 
     public function testInjectAlias()
@@ -216,26 +167,5 @@ class ConfigTest extends TestCase
             ],
             $service->injected
         );
-    }
-
-    public function testFactoryGetsServiceName()
-    {
-        $factory = new FactoryWithName();
-
-        $dependencies = [
-            'services'  => [
-                'factory' => $factory,
-            ],
-            'factories' => [
-                'foo-bar' => 'factory',
-            ],
-        ];
-
-        $container = $this->builder->newConfiguredInstance([new Config(['dependencies' => $dependencies])]);
-        $args = $container->get('foo-bar');
-
-        self::assertCount(2, $args);
-        self::assertSame($container, array_shift($args));
-        self::assertEquals('foo-bar', array_shift($args));
     }
 }

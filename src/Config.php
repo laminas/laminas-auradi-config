@@ -12,6 +12,7 @@ namespace Zend\AuraDi\Config;
 use ArrayObject;
 use Aura\Di\Container;
 use Aura\Di\ContainerConfigInterface;
+use Aura\Di\Exception\ServiceNotFound;
 
 use function is_array;
 use function is_callable;
@@ -92,10 +93,22 @@ class Config implements ContainerConfigInterface
             && is_array($dependencies['factories'])
         ) {
             foreach ($dependencies['factories'] as $service => $factory) {
-                if (! $container->has($factory)) {
-                    $container->set($factory, $container->lazyNew($factory));
+                if (is_callable($factory)) {
+                    $container->set($service, $container->lazy($factory, $container, $service));
+                    continue;
                 }
-                $container->set($service, $container->lazyGetCall($factory, '__invoke', $container, $service));
+
+                $container->set($service, $container->lazy(function ($container, $service) use ($factory) {
+                    if (! class_exists($factory)) {
+                        throw new ServiceNotFound(sprintf(
+                            'Service %s cannot be initialized by factory %s',
+                            $service,
+                            $factory
+                        ));
+                    }
+
+                    return (new $factory())($container, $service);
+                }, $container, $service));
             }
         }
 
