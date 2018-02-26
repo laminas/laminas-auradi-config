@@ -4,6 +4,30 @@ All notable changes to this project will be documented in this file, in reverse 
 
 Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-config".
 
+## 1.0.0rc1 - 2018-02-26
+
+### Added
+
+- Nothing.
+
+### Changed
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#6](https://github.com/zendframework/zend-auradi-config/pull/6) fixes an
+  issue with invokables that are defined such that the key and the value differ.
+  In such cases, the key should be an alias to the invokable class.
+
 ## 1.0.0alpha1 - 2018-02-07
 
 ### Added
