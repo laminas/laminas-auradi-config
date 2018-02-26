@@ -101,7 +101,11 @@ class Config implements ContainerConfigInterface
             && is_array($dependencies['invokables'])
         ) {
             foreach ($dependencies['invokables'] as $service => $class) {
-                $container->set($service, $container->lazyNew($class));
+                if ($service !== $class) {
+                    $container->set($service, $container->lazyGet($class));
+                }
+
+                $container->set($class, $container->lazyNew($class));
             }
         }
 
