@@ -5,11 +5,16 @@
  * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Zend\AuraDi\Config;
 
 use ArrayObject;
 use Aura\Di\Container;
 use Aura\Di\ContainerConfigInterface;
+
+use function is_array;
+use function is_callable;
 
 /**
  * Configuration for the Aura.Di container.
@@ -130,7 +135,7 @@ class Config implements ContainerConfigInterface
      * @return array List of dependencies minus any services, factories, or
      *     invokables that match services using delegator factories.
      */
-    private function marshalDelegators(Container $container, array $dependencies)
+    private function marshalDelegators(Container $container, array $dependencies) : array
     {
         foreach ($dependencies['delegators'] as $service => $delegatorNames) {
             $factory = null;

@@ -7,6 +7,8 @@
 
 namespace ZendTest\AuraDi\Config\TestAsset;
 
+use function func_get_args;
+
 class FactoryWithName
 {
     public function __invoke()

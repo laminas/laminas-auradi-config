@@ -5,9 +5,14 @@
  * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace Zend\AuraDi\Config;
 
 use Aura\Di\Container;
+
+use function array_reduce;
+use function is_callable;
 
 /**
  * Aura.Di-compatible delegator factory.
@@ -55,10 +60,9 @@ class DelegatorFactory
     /**
      * Build the instance, invoking each delegator with the result of the previous.
      *
-     * @param string $serviceName
      * @return mixed
      */
-    public function build(Container $container, $serviceName)
+    public function build(Container $container, string $serviceName)
     {
         $factory = $this->factory;
         return array_reduce(

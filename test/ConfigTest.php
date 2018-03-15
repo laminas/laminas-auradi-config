@@ -5,12 +5,16 @@
  * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
+declare(strict_types=1);
+
 namespace ZendTest\AuraDi\Config;
 
 use Aura\Di\ContainerBuilder;
 use PHPUnit\Framework\TestCase;
 use Zend\AuraDi\Config\Config;
 use ZendTest\AuraDi\Config\TestAsset\FactoryWithName;
+
+use function array_shift;
 
 class ConfigTest extends TestCase
 {
