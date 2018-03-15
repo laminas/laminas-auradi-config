@@ -14,6 +14,8 @@ use PHPUnit\Framework\TestCase;
 use Zend\AuraDi\Config\Config;
 use ZendTest\AuraDi\Config\TestAsset\FactoryWithName;
 
+use function array_shift;
+
 class ConfigTest extends TestCase
 {
     /** @var ContainerBuilder */

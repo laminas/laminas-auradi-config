@@ -11,6 +11,9 @@ namespace Zend\AuraDi\Config;
 
 use Aura\Di\Container;
 
+use function array_reduce;
+use function is_callable;
+
 /**
  * Aura.Di-compatible delegator factory.
  *
