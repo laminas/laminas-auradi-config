@@ -13,6 +13,9 @@ use ArrayObject;
 use Aura\Di\Container;
 use Aura\Di\ContainerConfigInterface;
 
+use function is_array;
+use function is_callable;
+
 /**
  * Configuration for the Aura.Di container.
  *
