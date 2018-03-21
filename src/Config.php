@@ -14,6 +14,7 @@ use Aura\Di\Container;
 use Aura\Di\ContainerConfigInterface;
 use Aura\Di\Exception\ServiceNotFound;
 
+use function array_search;
 use function is_array;
 use function is_callable;
 
@@ -163,16 +164,22 @@ class Config implements ContainerConfigInterface
                 unset($dependencies['factories'][$service]);
             }
 
-            if (isset($dependencies['invokables'][$service])) {
-                // Marshal from invokable
-                $class = $dependencies['invokables'][$service];
-                $factory = function () use ($class) {
-                    return new $class();
-                };
-                unset($dependencies['invokables'][$service]);
+            if (isset($dependencies['invokables'])) {
+                while (false !== ($key = array_search($service, $dependencies['invokables'], true))) {
+                    // Marshal from invokable
+                    $class = $dependencies['invokables'][$key];
+                    $factory = function () use ($class) {
+                        return new $class();
+                    };
+                    unset($dependencies['invokables'][$key]);
+
+                    if ($key !== $service) {
+                        $dependencies['aliases'][$key] = $service;
+                    }
+                }
             }
 
-            if (! is_callable($factory)) {
+            if (! $factory) {
                 continue;
             }
 
