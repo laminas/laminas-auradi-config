@@ -12,6 +12,7 @@ namespace Zend\AuraDi\Config;
 use Aura\Di\Container;
 
 use function array_reduce;
+use Aura\Di\Exception\ServiceNotFound;
 use function is_callable;
 
 /**
@@ -68,7 +69,22 @@ class DelegatorFactory
         return array_reduce(
             $this->delegators,
             function ($instance, $delegatorName) use ($serviceName, $container) {
-                $delegator = is_callable($delegatorName) ? $delegatorName : new $delegatorName();
+                if (! class_exists($delegatorName)) {
+                    throw new ServiceNotFound(sprintf(
+                        'Delegator class %s does not exist',
+                        $delegatorName
+                    ));
+                }
+
+                $delegator = new $delegatorName();
+
+                if (! is_callable($delegator)) {
+                    throw new ServiceNotFound(sprintf(
+                        'Delegator class %s is not callable',
+                        $delegatorName
+                    ));
+                }
+
                 return $delegator($container, $serviceName, function () use ($instance) {
                     return $instance;
                 });

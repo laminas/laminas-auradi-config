@@ -108,7 +108,17 @@ class Config implements ContainerConfigInterface
                         ));
                     }
 
-                    return (new $factory())($container, $service);
+                    $instance = new $factory();
+
+                    if (! is_callable($instance)) {
+                        throw new ServiceNotFound(sprintf(
+                            'Service %s cannot be initalized by non invokable factory %s',
+                            $service,
+                            $factory
+                        ));
+                    }
+
+                    return $instance($container, $service);
                 }, $container, $service));
             }
         }
@@ -158,7 +168,24 @@ class Config implements ContainerConfigInterface
                 // Marshal from factory
                 $serviceFactory = $dependencies['factories'][$service];
                 $factory = function () use ($service, $serviceFactory, $container) {
+                    if (! class_exists($serviceFactory)) {
+                        throw new ServiceNotFound(sprintf(
+                            'Service %s cannot by initialized by factory %s; factory class does not exist',
+                            $service,
+                            $serviceFactory
+                        ));
+                    }
+
                     $factory = new $serviceFactory();
+
+                    if (! is_callable($factory)) {
+                        throw new ServiceNotFound(sprintf(
+                            'Service %s cannot by initalized by factory %s; factory is not callable',
+                            $service,
+                            $serviceFactory
+                        ));
+                    }
+
                     return $factory($container, $service);
                 };
                 unset($dependencies['factories'][$service]);

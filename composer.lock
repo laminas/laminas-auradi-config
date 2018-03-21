@@ -1708,7 +1708,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/weierophinney/zend-container-config-test",
-                "reference": "536e9f3a5d9c5ea86aec17ad172277d0afac6adb"
+                "reference": "eda19a31a53604ce0ca8a7c3e41f8c149d4de7b3"
             },
             "require": {
                 "php": "^7.1",
@@ -1778,7 +1778,7 @@
                 "slack": "https://zendframework-slack.herokuapp.com",
                 "forum": "https://discourse.zendframework.com/c/questions/expressive"
             },
-            "time": "2018-03-20T20:47:31+00:00"
+            "time": "2018-03-21T17:06:59+00:00"
         }
     ],
     "aliases": [],
