@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-auradi-config for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (https://www.zend.com)
+ * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
@@ -152,15 +152,6 @@ class Config implements ContainerConfigInterface
     {
         foreach ($dependencies['delegators'] as $service => $delegatorNames) {
             $factory = null;
-
-            if (isset($dependencies['services'][$service])) {
-                // Marshal from service
-                $instance = $dependencies['services'][$service];
-                $factory = function () use ($instance) {
-                    return $instance;
-                };
-                unset($dependencies['services'][$service]);
-            }
 
             if (isset($dependencies['factories'][$service])) {
                 // Marshal from factory
