@@ -13,6 +13,7 @@ use ArrayObject;
 use Aura\Di\Container;
 use Aura\Di\ContainerConfigInterface;
 use Aura\Di\Exception\ServiceNotFound;
+use Psr\Container\ContainerInterface;
 
 use function array_search;
 use function class_exists;
@@ -102,27 +103,30 @@ class Config implements ContainerConfigInterface
                     continue;
                 }
 
-                $container->set($service, $container->lazy(function ($container, $service) use ($factory) {
-                    if (is_string($factory) && ! class_exists($factory)) {
-                        throw new ServiceNotFound(sprintf(
-                            'Service %s cannot be initialized by factory %s',
-                            $service,
-                            $factory
-                        ));
-                    }
+                $container->set(
+                    $service,
+                    $container->lazy(function (ContainerInterface $container, string $service) use ($factory) {
+                        if (is_string($factory) && ! class_exists($factory)) {
+                            throw new ServiceNotFound(sprintf(
+                                'Service %s cannot be initialized by factory %s',
+                                $service,
+                                $factory
+                            ));
+                        }
 
-                    $instance = new $factory();
+                        $instance = new $factory();
 
-                    if (! is_callable($instance)) {
-                        throw new ServiceNotFound(sprintf(
-                            'Service %s cannot be initalized by non invokable factory %s',
-                            $service,
-                            $factory
-                        ));
-                    }
+                        if (! is_callable($instance)) {
+                            throw new ServiceNotFound(sprintf(
+                                'Service %s cannot be initalized by non invokable factory %s',
+                                $service,
+                                $factory
+                            ));
+                        }
 
-                    return $instance($container, $service);
-                }, $container, $service));
+                        return $instance($container, $service);
+                    }, $container, $service)
+                );
             }
         }
 
@@ -135,7 +139,13 @@ class Config implements ContainerConfigInterface
                     $container->set($service, $container->lazyGet($class));
                 }
 
-                $container->set($class, $container->lazyNew($class));
+                $container->set($class, $container->lazy(function () use ($class) {
+                    if (! class_exists($class)) {
+                        throw new ServiceNotFound();
+                    }
+
+                    return new $class();
+                }));
             }
         }
 
@@ -201,6 +211,10 @@ class Config implements ContainerConfigInterface
                     // Marshal from invokable
                     $class = $dependencies['invokables'][$key];
                     $factory = function () use ($class) {
+                        if (! class_exists($class)) {
+                            throw new ServiceNotFound();
+                        }
+
                         return new $class();
                     };
                     unset($dependencies['invokables'][$key]);
