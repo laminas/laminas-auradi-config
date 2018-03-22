@@ -89,6 +89,6 @@ class DelegatorFactory
             };
         }
 
-        return $instance;
+        return $instance ?? $callback();
     }
 }
