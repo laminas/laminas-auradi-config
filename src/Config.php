@@ -15,8 +15,11 @@ use Aura\Di\ContainerConfigInterface;
 use Aura\Di\Exception\ServiceNotFound;
 
 use function array_search;
+use function class_exists;
 use function is_array;
 use function is_callable;
+use function is_string;
+use function sprintf;
 
 /**
  * Configuration for the Aura.Di container.
@@ -100,7 +103,7 @@ class Config implements ContainerConfigInterface
                 }
 
                 $container->set($service, $container->lazy(function ($container, $service) use ($factory) {
-                    if (! class_exists($factory)) {
+                    if (is_string($factory) && ! class_exists($factory)) {
                         throw new ServiceNotFound(sprintf(
                             'Service %s cannot be initialized by factory %s',
                             $service,
@@ -168,15 +171,17 @@ class Config implements ContainerConfigInterface
                 // Marshal from factory
                 $serviceFactory = $dependencies['factories'][$service];
                 $factory = function () use ($service, $serviceFactory, $container) {
-                    if (! class_exists($serviceFactory)) {
+                    if (is_callable($serviceFactory)) {
+                        $factory = $serviceFactory;
+                    } elseif (is_string($serviceFactory) && ! class_exists($serviceFactory)) {
                         throw new ServiceNotFound(sprintf(
                             'Service %s cannot by initialized by factory %s; factory class does not exist',
                             $service,
                             $serviceFactory
                         ));
+                    } else {
+                        $factory = new $serviceFactory();
                     }
-
-                    $factory = new $serviceFactory();
 
                     if (! is_callable($factory)) {
                         throw new ServiceNotFound(sprintf(

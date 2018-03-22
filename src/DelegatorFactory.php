@@ -10,9 +10,8 @@ declare(strict_types=1);
 namespace Zend\AuraDi\Config;
 
 use Aura\Di\Container;
-
-use function array_reduce;
 use Aura\Di\Exception\ServiceNotFound;
+use function array_reduce;
 use function is_callable;
 
 /**
@@ -65,31 +64,31 @@ class DelegatorFactory
      */
     public function build(Container $container, string $serviceName)
     {
-        $factory = $this->factory;
-        return array_reduce(
-            $this->delegators,
-            function ($instance, $delegatorName) use ($serviceName, $container) {
-                if (! class_exists($delegatorName)) {
-                    throw new ServiceNotFound(sprintf(
-                        'Delegator class %s does not exist',
-                        $delegatorName
-                    ));
-                }
+        $callback = $this->factory;
 
-                $delegator = new $delegatorName();
+        foreach ($this->delegators as $delegatorName) {
+            if (! class_exists($delegatorName)) {
+                throw new ServiceNotFound(sprintf(
+                    'Delegator class %s does not exist',
+                    $delegatorName
+                ));
+            }
 
-                if (! is_callable($delegator)) {
-                    throw new ServiceNotFound(sprintf(
-                        'Delegator class %s is not callable',
-                        $delegatorName
-                    ));
-                }
+            $delegator = new $delegatorName();
 
-                return $delegator($container, $serviceName, function () use ($instance) {
-                    return $instance;
-                });
-            },
-            $factory()
-        );
+            if (! is_callable($delegator)) {
+                throw new ServiceNotFound(sprintf(
+                    'Delegator class %s is not callable',
+                    $delegatorName
+                ));
+            }
+
+            $instance = $delegator($container, $serviceName, $callback);
+            $callback = function () use ($instance) {
+                return $instance;
+            };
+        }
+
+        return $instance;
     }
 }
