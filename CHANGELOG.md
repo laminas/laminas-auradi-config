@@ -24,7 +24,14 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 ### Fixed
 
-- Nothing.
+- [#10](https://github.com/zendframework/zend-auradi-config/pull/10) fixes
+  support for invokables configuration. Invokables will be instantiated on
+  first request. If the key name does not match the class name, an alias will be
+  created mapping the key to the target class as well.
+
+- [#10](https://github.com/zendframework/zend-auradi-config/pull/10) fixes
+  support for delegators, ensuring they operate for both invokables and
+  factory-based services, and always on the canonical name.
 
 ## 1.0.0 - 2018-03-15
 
