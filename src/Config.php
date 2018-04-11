@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-auradi-config for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (https://www.zend.com)
+ * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
@@ -12,9 +12,16 @@ namespace Zend\AuraDi\Config;
 use ArrayObject;
 use Aura\Di\Container;
 use Aura\Di\ContainerConfigInterface;
+use Aura\Di\Exception\ServiceNotFound;
+use Psr\Container\ContainerInterface;
 
+use function array_search;
+use function class_exists;
 use function is_array;
 use function is_callable;
+use function is_string;
+use function sprintf;
+use function var_export;
 
 /**
  * Configuration for the Aura.Di container.
@@ -34,9 +41,6 @@ class Config implements ContainerConfigInterface
      */
     private $config;
 
-    /**
-     * @param array $config
-     */
     public function __construct(array $config)
     {
         $this->config = $config;
@@ -92,10 +96,35 @@ class Config implements ContainerConfigInterface
             && is_array($dependencies['factories'])
         ) {
             foreach ($dependencies['factories'] as $service => $factory) {
-                if (! $container->has($factory)) {
-                    $container->set($factory, $container->lazyNew($factory));
+                if (is_callable($factory)) {
+                    $container->set($service, $container->lazy($factory, $container, $service));
+                    continue;
                 }
-                $container->set($service, $container->lazyGetCall($factory, '__invoke', $container, $service));
+
+                $container->set(
+                    $service,
+                    $container->lazy(function (ContainerInterface $container, string $service) use ($factory) {
+                        if (! is_string($factory) || ! class_exists($factory)) {
+                            throw new ServiceNotFound(sprintf(
+                                'Service %s cannot be initialized by factory %s',
+                                $service,
+                                is_string($factory) ? $factory : var_export($factory, true)
+                            ));
+                        }
+
+                        $instance = new $factory();
+
+                        if (! is_callable($instance)) {
+                            throw new ServiceNotFound(sprintf(
+                                'Service %s cannot be initalized by non invokable factory %s',
+                                $service,
+                                $factory
+                            ));
+                        }
+
+                        return $instance($container, $service);
+                    }, $container, $service)
+                );
             }
         }
 
@@ -108,7 +137,16 @@ class Config implements ContainerConfigInterface
                     $container->set($service, $container->lazyGet($class));
                 }
 
-                $container->set($class, $container->lazyNew($class));
+                $container->set($class, $container->lazy(function () use ($class) {
+                    if (! is_string($class) || ! class_exists($class)) {
+                        throw new ServiceNotFound(sprintf(
+                            'Service %s cannot be created',
+                            is_string($class) ? $class : var_export($class, true)
+                        ));
+                    }
+
+                    return new $class();
+                }));
             }
         }
 
@@ -140,35 +178,58 @@ class Config implements ContainerConfigInterface
         foreach ($dependencies['delegators'] as $service => $delegatorNames) {
             $factory = null;
 
-            if (isset($dependencies['services'][$service])) {
-                // Marshal from service
-                $instance = $dependencies['services'][$service];
-                $factory = function () use ($instance) {
-                    return $instance;
-                };
-                unset($dependencies['services'][$service]);
-            }
-
             if (isset($dependencies['factories'][$service])) {
                 // Marshal from factory
                 $serviceFactory = $dependencies['factories'][$service];
                 $factory = function () use ($service, $serviceFactory, $container) {
-                    $factory = new $serviceFactory();
+                    if (is_callable($serviceFactory)) {
+                        $factory = $serviceFactory;
+                    } elseif (is_string($serviceFactory) && ! class_exists($serviceFactory)) {
+                        throw new ServiceNotFound(sprintf(
+                            'Service %s cannot by initialized by factory %s; factory class does not exist',
+                            $service,
+                            $serviceFactory
+                        ));
+                    } else {
+                        $factory = new $serviceFactory();
+                    }
+
+                    if (! is_callable($factory)) {
+                        throw new ServiceNotFound(sprintf(
+                            'Service %s cannot by initalized by factory %s; factory is not callable',
+                            $service,
+                            $serviceFactory
+                        ));
+                    }
+
                     return $factory($container, $service);
                 };
                 unset($dependencies['factories'][$service]);
             }
 
-            if (isset($dependencies['invokables'][$service])) {
-                // Marshal from invokable
-                $class = $dependencies['invokables'][$service];
-                $factory = function () use ($class) {
-                    return new $class();
-                };
-                unset($dependencies['invokables'][$service]);
+            if (isset($dependencies['invokables'])) {
+                while (false !== ($key = array_search($service, $dependencies['invokables'], true))) {
+                    // Marshal from invokable
+                    $class = $dependencies['invokables'][$key];
+                    $factory = function () use ($class) {
+                        if (! is_string($class) || ! class_exists($class)) {
+                            throw new ServiceNotFound(sprintf(
+                                'Service %s cannot be created',
+                                is_string($class) ? $class : var_export($class, true)
+                            ));
+                        }
+
+                        return new $class();
+                    };
+                    unset($dependencies['invokables'][$key]);
+
+                    if ($key !== $service) {
+                        $dependencies['aliases'][$key] = $service;
+                    }
+                }
             }
 
-            if (! is_callable($factory)) {
+            if (! $factory) {
                 continue;
             }
 

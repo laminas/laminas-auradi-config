@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-auradi-config for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (https://www.zend.com)
+ * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
@@ -10,9 +10,11 @@ declare(strict_types=1);
 namespace Zend\AuraDi\Config;
 
 use Aura\Di\Container;
+use Aura\Di\Exception\ServiceNotFound;
 
-use function array_reduce;
+use function class_exists;
 use function is_callable;
+use function sprintf;
 
 /**
  * Aura.Di-compatible delegator factory.
@@ -54,26 +56,42 @@ class DelegatorFactory
     public function __construct(array $delegators, callable $factory)
     {
         $this->delegators = $delegators;
-        $this->factory    = $factory;
+        $this->factory = $factory;
     }
 
     /**
      * Build the instance, invoking each delegator with the result of the previous.
      *
      * @return mixed
+     * @throws ServiceNotFound
      */
     public function build(Container $container, string $serviceName)
     {
-        $factory = $this->factory;
-        return array_reduce(
-            $this->delegators,
-            function ($instance, $delegatorName) use ($serviceName, $container) {
-                $delegator = is_callable($delegatorName) ? $delegatorName : new $delegatorName();
-                return $delegator($container, $serviceName, function () use ($instance) {
-                    return $instance;
-                });
-            },
-            $factory()
-        );
+        $callback = $this->factory;
+
+        foreach ($this->delegators as $delegatorName) {
+            if (! class_exists($delegatorName)) {
+                throw new ServiceNotFound(sprintf(
+                    'Delegator class %s does not exist',
+                    $delegatorName
+                ));
+            }
+
+            $delegator = new $delegatorName();
+
+            if (! is_callable($delegator)) {
+                throw new ServiceNotFound(sprintf(
+                    'Delegator class %s is not callable',
+                    $delegatorName
+                ));
+            }
+
+            $instance = $delegator($container, $serviceName, $callback);
+            $callback = function () use ($instance) {
+                return $instance;
+            };
+        }
+
+        return $instance ?? $callback();
     }
 }
