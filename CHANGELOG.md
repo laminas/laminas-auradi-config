@@ -26,7 +26,7 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 - Nothing.
 
-## 1.0.1 - TBD
+## 1.0.1 - 2018-04-11
 
 ### Added
 
