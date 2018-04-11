@@ -21,6 +21,7 @@ use function is_array;
 use function is_callable;
 use function is_string;
 use function sprintf;
+use function var_export;
 
 /**
  * Configuration for the Aura.Di container.
@@ -40,9 +41,6 @@ class Config implements ContainerConfigInterface
      */
     private $config;
 
-    /**
-     * @param array $config
-     */
     public function __construct(array $config)
     {
         $this->config = $config;
@@ -106,11 +104,11 @@ class Config implements ContainerConfigInterface
                 $container->set(
                     $service,
                     $container->lazy(function (ContainerInterface $container, string $service) use ($factory) {
-                        if (is_string($factory) && ! class_exists($factory)) {
+                        if (! is_string($factory) || ! class_exists($factory)) {
                             throw new ServiceNotFound(sprintf(
                                 'Service %s cannot be initialized by factory %s',
                                 $service,
-                                $factory
+                                is_string($factory) ? $factory : var_export($factory, true)
                             ));
                         }
 
@@ -140,8 +138,11 @@ class Config implements ContainerConfigInterface
                 }
 
                 $container->set($class, $container->lazy(function () use ($class) {
-                    if (! class_exists($class)) {
-                        throw new ServiceNotFound();
+                    if (! is_string($class) || ! class_exists($class)) {
+                        throw new ServiceNotFound(sprintf(
+                            'Service %s cannot be created',
+                            is_string($class) ? $class : var_export($class, true)
+                        ));
                     }
 
                     return new $class();
@@ -211,8 +212,11 @@ class Config implements ContainerConfigInterface
                     // Marshal from invokable
                     $class = $dependencies['invokables'][$key];
                     $factory = function () use ($class) {
-                        if (! class_exists($class)) {
-                            throw new ServiceNotFound();
+                        if (! is_string($class) || ! class_exists($class)) {
+                            throw new ServiceNotFound(sprintf(
+                                'Service %s cannot be created',
+                                is_string($class) ? $class : var_export($class, true)
+                            ));
                         }
 
                         return new $class();

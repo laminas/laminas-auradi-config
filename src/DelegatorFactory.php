@@ -1,7 +1,7 @@
 <?php
 /**
  * @see       https://github.com/zendframework/zend-auradi-config for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (https://www.zend.com)
+ * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (https://www.zend.com)
  * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
@@ -11,8 +11,10 @@ namespace Zend\AuraDi\Config;
 
 use Aura\Di\Container;
 use Aura\Di\Exception\ServiceNotFound;
-use function array_reduce;
+
+use function class_exists;
 use function is_callable;
+use function sprintf;
 
 /**
  * Aura.Di-compatible delegator factory.
@@ -54,13 +56,14 @@ class DelegatorFactory
     public function __construct(array $delegators, callable $factory)
     {
         $this->delegators = $delegators;
-        $this->factory    = $factory;
+        $this->factory = $factory;
     }
 
     /**
      * Build the instance, invoking each delegator with the result of the previous.
      *
      * @return mixed
+     * @throws ServiceNotFound
      */
     public function build(Container $container, string $serviceName)
     {
