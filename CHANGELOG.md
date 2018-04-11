@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-config".
 
-## 1.0.1 - TBD
+## 1.0.1 - 2018-04-11
 
 ### Added
 
