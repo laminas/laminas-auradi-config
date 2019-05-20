@@ -8,7 +8,7 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 ### Added
 
-- Nothing.
+- [#11](https://github.com/zendframework/zend-auradi-config/pull/11) adds support for PHP 7.3.
 
 ### Changed
 
