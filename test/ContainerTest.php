@@ -1,20 +1,21 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-auradi-config for the canonical source repository
- * @copyright Copyright (c) 2017-2018 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-auradi-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-auradi-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
 declare(strict_types=1);
 
-namespace ZendTest\AuraDi\Config;
+namespace LaminasTest\AuraDi\Config;
 
+use Laminas\AuraDi\Config\Config;
+use Laminas\AuraDi\Config\ContainerFactory;
+use Laminas\ContainerConfigTest\AbstractMezzioContainerConfigTest;
 use Psr\Container\ContainerInterface;
-use Zend\AuraDi\Config\Config;
-use Zend\AuraDi\Config\ContainerFactory;
-use Zend\ContainerConfigTest\AbstractExpressiveContainerConfigTest;
 
-class ContainerTest extends AbstractExpressiveContainerConfigTest
+class ContainerTest extends AbstractMezzioContainerConfigTest
 {
     protected function createContainer(array $config) : ContainerInterface
     {
