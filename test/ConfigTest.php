@@ -1,16 +1,17 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-auradi-config for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-auradi-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-auradi-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace ZendTest\AuraDi\Config;
+namespace LaminasTest\AuraDi\Config;
 
 use Aura\Di\ContainerBuilder;
+use Laminas\AuraDi\Config\Config;
+use LaminasTest\AuraDi\Config\TestAsset\FactoryWithName;
 use PHPUnit\Framework\TestCase;
-use Zend\AuraDi\Config\Config;
-use ZendTest\AuraDi\Config\TestAsset\FactoryWithName;
 
 class ConfigTest extends TestCase
 {

@@ -1,19 +1,19 @@
-# zend-auradi-config
+# laminas-auradi-config
 
-[![Build Status](https://secure.travis-ci.org/zendframework/zend-auradi-config.svg?branch=master)](https://secure.travis-ci.org/zendframework/zend-auradi-config)
-[![Coverage Status](https://coveralls.io/repos/github/zendframework/zend-auradi-config/badge.svg?branch=master)](https://coveralls.io/github/zendframework/zend-auradi-config?branch=master)
+[![Build Status](https://travis-ci.org/laminas/laminas-auradi-config.svg?branch=master)](https://travis-ci.org/laminas/laminas-auradi-config)
+[![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-auradi-config/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-auradi-config?branch=master)
 
 This library provides utilities to configure
 a [PSR-11](http://www.php-fig.org/psr/psr-11/) compatible
 [Aura.Di container](https://github.com/auraphp/Aura.Di)
-using zend-servicemanager configuration.
+using laminas-servicemanager configuration.
 
 ## Installation
 
 Run the following to install this library:
 
 ```bash
-$ composer require zendframework/zend-auradi-config
+$ composer require laminas/laminas-auradi-config
 ```
 
 ## Configuration
@@ -22,8 +22,8 @@ To get a configured Aura.Di container, do the following:
 
 ```php
 <?php
-use Zend\AuraDi\Config\Config;
-use Zend\AuraDi\Config\ContainerFactory;
+use Laminas\AuraDi\Config\Config;
+use Laminas\AuraDi\Config\ContainerFactory;
 
 $factory = new ContainerFactory();
 
@@ -55,7 +55,7 @@ The `dependencies` sub associative array can contain the following keys:
   another alias).
 - `delegators`: an associative array that maps service names to lists of
   delegator factory keys, see the
-  [Expressive delegators documentation](https://docs.zendframework.com/zend-servicemanager/delegators/)
+  [Mezzio delegators documentation](https://docs.laminas.dev/laminas-servicemanager/delegators/)
   for more details.
 
 > Please note, that the whole configuration is available in the `$container`
@@ -65,15 +65,15 @@ The `dependencies` sub associative array can contain the following keys:
 > $config = $container->get('config');
 > ```
 
-## Using with Expressive
+## Using with Mezzio
 
 Replace the contents of `config/container.php` with the following:
 
 ```php
 <?php
 
-use Zend\AuraDi\Config\Config;
-use Zend\AuraDi\Config\ContainerFactory;
+use Laminas\AuraDi\Config\Config;
+use Laminas\AuraDi\Config\ContainerFactory;
 
 $config  = require __DIR__ . '/config.php';
 $factory = new ContainerFactory();
