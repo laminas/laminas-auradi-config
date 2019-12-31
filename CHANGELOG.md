@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
-Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-config".
+Versions prior to 0.2.0 were released as the package "webimpress/laminas-auradi-config".
 
 ## 1.0.0alpha1 - 2018-02-07
 
@@ -20,7 +20,7 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 ### Removed
 
-- [#3](https://github.com/zendframework/zend-auradi-config/pull/3)
+- [zendframework/zend-auradi-config#3](https://github.com/zendframework/zend-auradi-config/pull/3)
   removes support for PHP versions prior to PHP 7.1.
 
 ### Fixed
@@ -47,7 +47,7 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 ### Fixed
 
-- [#5](https://github.com/zendframework/zend-auradi-config/pull/5) fixes an
+- [zendframework/zend-auradi-config#5](https://github.com/zendframework/zend-auradi-config/pull/5) fixes an
   issue whereby factories would not receive the service name as the second
   argument, preventing their re-use for additional services.
 
@@ -93,7 +93,7 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 ### Fixed
 
-- [#1](https://github.com/webimpress/zend-auradi-config/pull/1) fixes an issue with lowest
+- [zendframework/zend-auradi-config#1](https://github.com/webimpress/laminas-auradi-config/pull/1) fixes an issue with lowest
   dependencies, when deprecated interop-container was used, instead of PSR-11 container.
 
 ## 0.1.0 - 2017-09-27
