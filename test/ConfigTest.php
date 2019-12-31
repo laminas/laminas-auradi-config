@@ -1,10 +1,10 @@
 <?php
 
-namespace ZendTest\AuraDi\Config;
+namespace LaminasTest\AuraDi\Config;
 
 use Aura\Di\ContainerBuilder;
+use Laminas\AuraDi\Config\Config;
 use PHPUnit\Framework\TestCase;
-use Zend\AuraDi\Config\Config;
 
 class ConfigTest extends TestCase
 {

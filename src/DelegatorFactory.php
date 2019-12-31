@@ -1,6 +1,6 @@
 <?php
 
-namespace Zend\AuraDi\Config;
+namespace Laminas\AuraDi\Config;
 
 use Aura\Di\Container;
 
