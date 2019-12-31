@@ -1,11 +1,12 @@
 <?php
+
 /**
- * @see       https://github.com/zendframework/zend-auradi-config for the canonical source repository
- * @copyright Copyright (c) 2017 Zend Technologies USA Inc. (https://www.zend.com)
- * @license   https://github.com/zendframework/zend-auradi-config/blob/master/LICENSE.md New BSD License
+ * @see       https://github.com/laminas/laminas-auradi-config for the canonical source repository
+ * @copyright https://github.com/laminas/laminas-auradi-config/blob/master/COPYRIGHT.md
+ * @license   https://github.com/laminas/laminas-auradi-config/blob/master/LICENSE.md New BSD License
  */
 
-namespace Zend\AuraDi\Config;
+namespace Laminas\AuraDi\Config;
 
 use ArrayObject;
 use Aura\Di\Container;
@@ -42,7 +43,7 @@ class Config implements ContainerConfigInterface
      *
      * - Adds the 'config' service.
      * - If delegators are defined, maps the service to lazyGetCall an
-     *   ExpressiveAuraDelegatorFactory::build invocation using the configured
+     *   MezzioAuraDelegatorFactory::build invocation using the configured
      *   delegator and whatever factory was responsible for it.
      * - If factories are defined, maps each factory class as a lazily
      *   instantiable service, and the service to lazyGetCall the factory to
