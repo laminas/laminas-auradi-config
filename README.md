@@ -1,19 +1,19 @@
-# zend-auradi-config
+# laminas-auradi-config
 
-[![Build Status](https://secure.travis-ci.org/webimpress/zend-auradi-config.svg?branch=master)](https://secure.travis-ci.org/webimpress/zend-auradi-config)
-[![Coverage Status](https://coveralls.io/repos/github/webimpress/zend-auradi-config/badge.svg?branch=master)](https://coveralls.io/github/webimpress/zend-auradi-config?branch=master)
+[![Build Status](https://travis-ci.org/webimpress/laminas-auradi-config.svg?branch=master)](https://travis-ci.org/webimpress/laminas-auradi-config)
+[![Coverage Status](https://coveralls.io/repos/github/webimpress/laminas-auradi-config/badge.svg?branch=master)](https://coveralls.io/github/webimpress/laminas-auradi-config?branch=master)
 
 This library provides utilities to configure
 [PSR-11](http://www.php-fig.org/psr/psr-11/)
 [Aura.Di container](https://github.com/auraphp/Aura.Di)
-using ZendFramework ServiceManager configuration.
+using Laminas ServiceManager configuration.
 
 ## Installation
 
 Run the following to install this library:
 
 ```bash
-$ composer require webimpress/zend-auradi-config
+$ composer require webimpress/laminas-auradi-config
 ```
 
 ## Configuration
@@ -23,8 +23,8 @@ Aura.Di Container do the following:
 
 ```php
 <?php
-use Zend\AuraDi\Config\Config;
-use Zend\AuraDi\Config\ContainerFactory;
+use Laminas\AuraDi\Config\Config;
+use Laminas\AuraDi\Config\ContainerFactory;
 
 $factory = new ContainerFactory();
 
@@ -53,7 +53,7 @@ The `dependencies` sub associative array can contain the following keys:
   alias).
 - `delegators`: an associative array that maps service keys to lists of
   delegator factory keys, see the
-  [delegators documentation](https://docs.zendframework.com/zend-servicemanager/delegators/)
+  [delegators documentation](https://docs.laminas.dev/laminas-servicemanager/delegators/)
   for more details.
 
 > Please note, that the whole configuration is available in the `$container`
@@ -63,19 +63,19 @@ The `dependencies` sub associative array can contain the following keys:
 > $config = $container->get('config');
 > ```
 
-## Using with Expressive
+## Using with Mezzio
 
 First you have to install the library:
 ```bash
-$ composer require webimpress/zend-auradi-config
+$ composer require webimpress/laminas-auradi-config
 ```
 
 Then replace contents of `config/container.php` with the following:
 ```php
 <?php
 
-use Zend\AuraDi\Config\Config;
-use Zend\AuraDi\Config\ContainerFactory;
+use Laminas\AuraDi\Config\Config;
+use Laminas\AuraDi\Config\ContainerFactory;
 
 $config  = require __DIR__ . '/config.php';
 $factory = new ContainerFactory();

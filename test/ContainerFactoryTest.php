@@ -1,11 +1,11 @@
 <?php
 
-namespace ZendTest\AuraDi\Config;
+namespace LaminasTest\AuraDi\Config;
 
 use Aura\Di\ContainerConfigInterface;
+use Laminas\AuraDi\Config\ContainerFactory;
 use PHPUnit\Framework\TestCase;
 use Psr\Container\ContainerInterface;
-use Zend\AuraDi\Config\ContainerFactory;
 
 class ContainerFactoryTest extends TestCase
 {

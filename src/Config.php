@@ -1,6 +1,6 @@
 <?php
 
-namespace Zend\AuraDi\Config;
+namespace Laminas\AuraDi\Config;
 
 use ArrayObject;
 use Aura\Di\Container;
@@ -37,7 +37,7 @@ class Config implements ContainerConfigInterface
      *
      * - Adds the 'config' service.
      * - If delegators are defined, maps the service to lazyGetCall an
-     *   ExpressiveAuraDelegatorFactory::build invocation using the configured
+     *   MezzioAuraDelegatorFactory::build invocation using the configured
      *   delegator and whatever factory was responsible for it.
      * - If factories are defined, maps each factory class as a lazily
      *   instantiable service, and the service to lazyGetCall the factory to
