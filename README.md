@@ -1,6 +1,6 @@
 # laminas-auradi-config
 
-[![Build Status](https://travis-ci.org/laminas/laminas-auradi-config.svg?branch=master)](https://travis-ci.org/laminas/laminas-auradi-config)
+[![Build Status](https://travis-ci.com/laminas/laminas-auradi-config.svg?branch=master)](https://travis-ci.com/laminas/laminas-auradi-config)
 [![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-auradi-config/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-auradi-config?branch=master)
 
 This library provides utilities to configure
