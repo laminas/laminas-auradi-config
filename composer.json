@@ -60,6 +60,6 @@
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     },
     "replace": {
-        "zendframework/zend-auradi-config": "self.version"
+        "zendframework/zend-auradi-config": "^1.0.2"
     }
 }
