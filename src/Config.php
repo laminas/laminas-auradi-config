@@ -104,7 +104,7 @@ class Config implements ContainerConfigInterface
 
                 $container->set(
                     $service,
-                    $container->lazy(function (ContainerInterface $container, string $service) use ($factory) {
+                    $container->lazy(static function (ContainerInterface $container, string $service) use ($factory) {
                         if (! is_string($factory) || ! class_exists($factory)) {
                             throw new ServiceNotFound(sprintf(
                                 'Service %s cannot be initialized by factory %s',
@@ -138,7 +138,7 @@ class Config implements ContainerConfigInterface
                     $container->set($service, $container->lazyGet($class));
                 }
 
-                $container->set($class, $container->lazy(function () use ($class) {
+                $container->set($class, $container->lazy(static function () use ($class) {
                     if (! is_string($class) || ! class_exists($class)) {
                         throw new ServiceNotFound(sprintf(
                             'Service %s cannot be created',
@@ -182,7 +182,7 @@ class Config implements ContainerConfigInterface
             if (isset($dependencies['factories'][$service])) {
                 // Marshal from factory
                 $serviceFactory = $dependencies['factories'][$service];
-                $factory = function () use ($service, $serviceFactory, $container) {
+                $factory = static function () use ($service, $serviceFactory, $container) {
                     if (is_callable($serviceFactory)) {
                         $factory = $serviceFactory;
                     } elseif (is_string($serviceFactory) && ! class_exists($serviceFactory)) {
@@ -212,7 +212,7 @@ class Config implements ContainerConfigInterface
                 while (false !== ($key = array_search($service, $dependencies['invokables'], true))) {
                     // Marshal from invokable
                     $class = $dependencies['invokables'][$key];
-                    $factory = function () use ($class) {
+                    $factory = static function () use ($class) {
                         if (! is_string($class) || ! class_exists($class)) {
                             throw new ServiceNotFound(sprintf(
                                 'Service %s cannot be created',
