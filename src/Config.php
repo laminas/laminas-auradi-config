@@ -134,7 +134,7 @@ class Config implements ContainerConfigInterface
             && is_array($dependencies['invokables'])
         ) {
             foreach ($dependencies['invokables'] as $service => $class) {
-                if ($service !== $class) {
+                if (! is_int($service) && $service !== $class) {
                     $container->set($service, $container->lazyGet($class));
                 }
 
@@ -156,6 +156,10 @@ class Config implements ContainerConfigInterface
             && is_array($dependencies['aliases'])
         ) {
             foreach ($dependencies['aliases'] as $alias => $target) {
+                if (is_int($alias)) {
+                    continue;
+                }
+
                 $container->set($alias, $container->lazyGet($target));
             }
         }
