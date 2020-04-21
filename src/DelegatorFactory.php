@@ -88,7 +88,7 @@ class DelegatorFactory
             }
 
             $instance = $delegator($container, $serviceName, $callback);
-            $callback = function () use ($instance) {
+            $callback = static function () use ($instance) {
                 return $instance;
             };
         }
