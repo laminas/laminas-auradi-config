@@ -60,7 +60,7 @@ class Config implements ContainerConfigInterface
      * - If invokables are defined, maps each to lazyNew the target.
      * - If aliases are defined, maps each to lazyGet the target.
      */
-    public function define(Container $container)
+    public function define(Container $container) : void
     {
         // Convert config to an object and inject it
         $container->set('config', new ArrayObject($this->config, ArrayObject::ARRAY_AS_PROPS));
@@ -168,7 +168,7 @@ class Config implements ContainerConfigInterface
     /**
      * This method is purposely a no-op.
      */
-    public function modify(Container $container)
+    public function modify(Container $container) : void
     {
     }
 
