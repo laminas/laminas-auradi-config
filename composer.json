@@ -28,7 +28,7 @@
     },
     "require": {
         "php": "^7.1",
-        "aura/di": "^3.4",
+        "aura/di": "^3.4 || ^4.0",
         "laminas/laminas-zendframework-bridge": "^1.0"
     },
     "require-dev": {
