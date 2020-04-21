@@ -4,11 +4,11 @@ All notable changes to this project will be documented in this file, in reverse 
 
 Versions prior to 0.2.0 were released as the package "webimpress/laminas-auradi-config".
 
-## 1.1.0 - TBD
+## 2.0.0 - TBD
 
 ### Added
 
-- Nothing.
+- [#4](https://github.com/laminas/laminas-auradi-config/pull/4) adds support for Aura.Di 4.0.
 
 ### Changed
 
