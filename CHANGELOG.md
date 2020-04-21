@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file, in reverse 
 
 Versions prior to 0.2.0 were released as the package "webimpress/laminas-auradi-config".
 
-## 2.0.0 - TBD
+## 2.0.0 - 2020-04-21
 
 ### Added
 
