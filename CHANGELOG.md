@@ -26,28 +26,6 @@ Versions prior to 0.2.0 were released as the package "webimpress/laminas-auradi-
 
 - Nothing.
 
-## 1.0.3 - TBD
-
-### Added
-
-- Nothing.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
-
-### Removed
-
-- Nothing.
-
-### Fixed
-
-- Nothing.
-
 ## 1.0.2 - 2019-05-20
 
 ### Added
