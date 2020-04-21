@@ -42,7 +42,7 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 ### Removed
 
-- Nothing.
+- [#5](https://github.com/laminas/laminas-auradi-config/pull/5) removes redundant dependency - `laminas/laminas-zendframework-bridge`.
 
 ### Fixed
 
