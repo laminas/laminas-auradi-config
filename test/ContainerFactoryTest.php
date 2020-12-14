@@ -13,14 +13,17 @@ namespace LaminasTest\AuraDi\Config;
 use Aura\Di\ContainerConfigInterface;
 use Laminas\AuraDi\Config\ContainerFactory;
 use PHPUnit\Framework\TestCase;
+use Prophecy\PhpUnit\ProphecyTrait;
 use Psr\Container\ContainerInterface;
 
 class ContainerFactoryTest extends TestCase
 {
+    use ProphecyTrait;
+
     /** @var ContainerFactory */
     private $factory;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
