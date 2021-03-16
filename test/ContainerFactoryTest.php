@@ -33,7 +33,7 @@ class ContainerFactoryTest extends TestCase
     public function testFactoryCreatesPsr11Container(): void
     {
         $factory = $this->factory;
-        $config = $this->prophesize(ContainerConfigInterface::class);
+        $config  = $this->prophesize(ContainerConfigInterface::class);
 
         $container = $factory($config->reveal());
 
