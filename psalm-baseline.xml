@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<files psalm-version="4.6.3@f1a840727dd756899eee2f1f9ea443e265a4763f">
+  <file src="src/Config.php">
+    <MissingClosureReturnType occurrences="3">
+      <code>static function () use ($class) {</code>
+      <code>static function () use ($service, $serviceFactory, $container) {</code>
+      <code>static function (ContainerInterface $container, string $service) use ($factory) {</code>
+    </MissingClosureReturnType>
+    <MixedArgument occurrences="10">
+      <code>$class</code>
+      <code>$class</code>
+      <code>$delegatorNames</code>
+      <code>$dependencies['invokables']</code>
+      <code>$service</code>
+      <code>$service</code>
+      <code>$service</code>
+      <code>$service</code>
+      <code>$serviceFactory</code>
+      <code>$target</code>
+    </MixedArgument>
+    <MixedArgumentTypeCoercion occurrences="3">
+      <code>$name</code>
+      <code>$service</code>
+      <code>$service</code>
+    </MixedArgumentTypeCoercion>
+    <MixedArrayAccess occurrences="2">
+      <code>$dependencies['invokables'][$key]</code>
+      <code>$dependencies['invokables'][$key]</code>
+    </MixedArrayAccess>
+    <MixedArrayAssignment occurrences="1">
+      <code>$dependencies['aliases'][$key]</code>
+    </MixedArrayAssignment>
+    <MixedArrayOffset occurrences="4">
+      <code>$dependencies['aliases'][$key]</code>
+      <code>$dependencies['factories'][$service]</code>
+      <code>$dependencies['invokables'][$key]</code>
+      <code>$dependencies['invokables'][$key]</code>
+    </MixedArrayOffset>
+    <MixedAssignment occurrences="10">
+      <code>$class</code>
+      <code>$class</code>
+      <code>$delegatorNames</code>
+      <code>$dependencies['aliases'][$key]</code>
+      <code>$factory</code>
+      <code>$key</code>
+      <code>$service</code>
+      <code>$service</code>
+      <code>$serviceFactory</code>
+      <code>$target</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="4">
+      <code>new $class()</code>
+      <code>new $class()</code>
+      <code>new $factory()</code>
+      <code>new $serviceFactory()</code>
+    </MixedMethodCall>
+  </file>
+  <file src="src/DelegatorFactory.php">
+    <DocblockTypeContradiction occurrences="1">
+      <code>gettype($delegator)</code>
+    </DocblockTypeContradiction>
+    <MissingClosureReturnType occurrences="1">
+      <code>static function () use ($instance) {</code>
+    </MissingClosureReturnType>
+    <MixedAssignment occurrences="1">
+      <code>$instance</code>
+    </MixedAssignment>
+    <MixedMethodCall occurrences="1">
+      <code>new $delegatorName()</code>
+    </MixedMethodCall>
+    <RedundantConditionGivenDocblockType occurrences="1">
+      <code>is_object($delegator)</code>
+    </RedundantConditionGivenDocblockType>
+  </file>
+  <file src="test/ConfigTest.php">
+    <MixedMethodCall occurrences="1">
+      <code>getArrayCopy</code>
+    </MixedMethodCall>
+  </file>
+</files>

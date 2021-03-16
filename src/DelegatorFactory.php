@@ -42,6 +42,7 @@ class DelegatorFactory
 {
     /**
      * @var array Either delegator factory names or instances.
+     * @psalm-var list<class-string|callable>
      */
     private $delegators;
 
@@ -53,6 +54,7 @@ class DelegatorFactory
     /**
      * @param array $delegators Array of delegator factory names or instances.
      * @param callable $factory Callable that can return the initial instance.
+     * @psalm-param list<class-string|callable> $delegators
      */
     public function __construct(array $delegators, callable $factory)
     {
@@ -70,20 +72,15 @@ class DelegatorFactory
     {
         $callback = $this->factory;
 
-        foreach ($this->delegators as $delegatorName) {
-            if (! class_exists($delegatorName)) {
-                throw new ServiceNotFound(sprintf(
-                    'Delegator class %s does not exist',
-                    $delegatorName
-                ));
+        foreach ($this->delegators as $delegator) {
+            if (is_string($delegator)) {
+                $delegator = $this->createDelegatorFromClassName($delegator);
             }
-
-            $delegator = new $delegatorName();
 
             if (! is_callable($delegator)) {
                 throw new ServiceNotFound(sprintf(
-                    'Delegator class %s is not callable',
-                    $delegatorName
+                    'Delegator of type %s is not callable',
+                    is_object($delegator) ? get_class($delegator) : gettype($delegator)
                 ));
             }
 
@@ -94,5 +91,18 @@ class DelegatorFactory
         }
 
         return $instance ?? $callback();
+    }
+
+    private function createDelegatorFromClassName(string $delegatorName): object
+    {
+        if (! class_exists($delegatorName)) {
+            throw new ServiceNotFound(sprintf(
+                'Delegator class %s does not exist',
+                $delegatorName
+            ));
+        }
+
+        /** @psalm-var class-string $delegatorName */
+        return new $delegatorName();
     }
 }

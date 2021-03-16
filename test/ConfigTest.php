@@ -27,7 +27,7 @@ class ConfigTest extends TestCase
         $this->builder = new ContainerBuilder();
     }
 
-    public function testInjectConfiguration()
+    public function testInjectConfiguration(): void
     {
         $config = [
             'foo' => 'bar',
