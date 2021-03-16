@@ -23,13 +23,14 @@
     "extra": {
     },
     "require": {
-        "php": "^7.1",
+        "php": "^7.3 || ~8.0.0",
         "aura/di": "^3.4 || ^4.0"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~1.0.0",
-        "laminas/laminas-container-config-test": "^0.2 || ^1.0",
-        "phpunit/phpunit": "^7.1.2"
+        "laminas/laminas-container-config-test": "^0.3 || ^1.0",
+        "phpspec/prophecy-phpunit": "^2.0.1",
+        "phpunit/phpunit": "^9.3"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2.0"

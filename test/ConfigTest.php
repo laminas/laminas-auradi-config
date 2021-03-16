@@ -20,7 +20,7 @@ class ConfigTest extends TestCase
     /** @var ContainerBuilder */
     private $builder;
 
-    protected function setUp()
+    protected function setUp(): void
     {
         parent::setUp();
 
