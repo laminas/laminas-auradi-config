@@ -14,7 +14,11 @@ use Aura\Di\Container;
 use Aura\Di\Exception\ServiceNotFound;
 
 use function class_exists;
+use function get_class;
+use function gettype;
 use function is_callable;
+use function is_object;
+use function is_string;
 use function sprintf;
 
 /**
@@ -46,9 +50,7 @@ class DelegatorFactory
      */
     private $delegators;
 
-    /**
-     * @var callable
-     */
+    /** @var callable */
     private $factory;
 
     /**
@@ -59,7 +61,7 @@ class DelegatorFactory
     public function __construct(array $delegators, callable $factory)
     {
         $this->delegators = $delegators;
-        $this->factory = $factory;
+        $this->factory    = $factory;
     }
 
     /**

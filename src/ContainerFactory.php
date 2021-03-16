@@ -16,7 +16,7 @@ use Aura\Di\ContainerConfigInterface;
 
 class ContainerFactory
 {
-    public function __invoke(ContainerConfigInterface $config) : Container
+    public function __invoke(ContainerConfigInterface $config): Container
     {
         $builder = new ContainerBuilder();
 

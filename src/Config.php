@@ -37,9 +37,7 @@ use function var_export;
  */
 class Config implements ContainerConfigInterface
 {
-    /**
-     * @var array
-     */
+    /** @var array */
     private $config;
 
     public function __construct(array $config)
@@ -60,12 +58,13 @@ class Config implements ContainerConfigInterface
      * - If invokables are defined, maps each to lazyNew the target.
      * - If aliases are defined, maps each to lazyGet the target.
      */
-    public function define(Container $container) : void
+    public function define(Container $container): void
     {
         // Convert config to an object and inject it
         $container->set('config', new ArrayObject($this->config, ArrayObject::ARRAY_AS_PROPS));
 
-        if (empty($this->config['dependencies'])
+        if (
+            empty($this->config['dependencies'])
             || ! is_array($this->config['dependencies'])
         ) {
             return;
@@ -77,14 +76,16 @@ class Config implements ContainerConfigInterface
         // This is done early because Aura.Di does not allow modification of a
         // service after creation. As such, we need to create custom factories
         // for each service with delegators.
-        if (isset($dependencies['delegators'])
+        if (
+            isset($dependencies['delegators'])
             && is_array($dependencies['delegators'])
         ) {
             $dependencies = $this->marshalDelegators($container, $dependencies);
         }
 
         // Inject services
-        if (isset($dependencies['services'])
+        if (
+            isset($dependencies['services'])
             && is_array($dependencies['services'])
         ) {
             foreach ($dependencies['services'] as $name => $service) {
@@ -93,7 +94,8 @@ class Config implements ContainerConfigInterface
         }
 
         // Inject factories
-        if (isset($dependencies['factories'])
+        if (
+            isset($dependencies['factories'])
             && is_array($dependencies['factories'])
         ) {
             foreach ($dependencies['factories'] as $service => $factory) {
@@ -130,7 +132,8 @@ class Config implements ContainerConfigInterface
         }
 
         // Inject invokables
-        if (isset($dependencies['invokables'])
+        if (
+            isset($dependencies['invokables'])
             && is_array($dependencies['invokables'])
         ) {
             foreach ($dependencies['invokables'] as $service => $class) {
@@ -152,7 +155,8 @@ class Config implements ContainerConfigInterface
         }
 
         // Inject aliases
-        if (isset($dependencies['aliases'])
+        if (
+            isset($dependencies['aliases'])
             && is_array($dependencies['aliases'])
         ) {
             foreach ($dependencies['aliases'] as $alias => $target) {
@@ -168,7 +172,7 @@ class Config implements ContainerConfigInterface
     /**
      * This method is purposely a no-op.
      */
-    public function modify(Container $container) : void
+    public function modify(Container $container): void
     {
     }
 
@@ -178,7 +182,7 @@ class Config implements ContainerConfigInterface
      * @return array List of dependencies minus any services, factories, or
      *     invokables that match services using delegator factories.
      */
-    private function marshalDelegators(Container $container, array $dependencies) : array
+    private function marshalDelegators(Container $container, array $dependencies): array
     {
         foreach ($dependencies['delegators'] as $service => $delegatorNames) {
             $factory = null;
@@ -186,7 +190,7 @@ class Config implements ContainerConfigInterface
             if (isset($dependencies['factories'][$service])) {
                 // Marshal from factory
                 $serviceFactory = $dependencies['factories'][$service];
-                $factory = static function () use ($service, $serviceFactory, $container) {
+                $factory        = static function () use ($service, $serviceFactory, $container) {
                     if (is_callable($serviceFactory)) {
                         $factory = $serviceFactory;
                     } elseif (is_string($serviceFactory) && ! class_exists($serviceFactory)) {
@@ -215,7 +219,7 @@ class Config implements ContainerConfigInterface
             if (isset($dependencies['invokables'])) {
                 while (false !== ($key = array_search($service, $dependencies['invokables'], true))) {
                     // Marshal from invokable
-                    $class = $dependencies['invokables'][$key];
+                    $class   = $dependencies['invokables'][$key];
                     $factory = static function () use ($class) {
                         if (! is_string($class) || ! class_exists($class)) {
                             throw new ServiceNotFound(sprintf(

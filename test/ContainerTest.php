@@ -17,7 +17,7 @@ use Psr\Container\ContainerInterface;
 
 class ContainerTest extends AbstractMezzioContainerConfigTest
 {
-    protected function createContainer(array $config) : ContainerInterface
+    protected function createContainer(array $config): ContainerInterface
     {
         $factory = new ContainerFactory();
 
