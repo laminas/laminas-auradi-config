@@ -1,7 +1,6 @@
 {
     "name": "laminas/laminas-auradi-config",
     "description": "PSR-11 Aura.DI container configurator for Laminas and Mezzio applications",
-    "license": "BSD-3-Clause",
     "keywords": [
         "laminas",
         "mezzio",
@@ -10,21 +9,13 @@
         "psr-11"
     ],
     "homepage": "https://laminas.dev",
-    "support": {
-        "issues": "https://github.com/laminas/laminas-auradi-config/issues",
-        "source": "https://github.com/laminas/laminas-auradi-config",
-        "rss": "https://github.com/laminas/laminas-auradi-config/releases.atom",
-        "chat": "https://laminas.dev/chat",
-        "forum": "https://discourse.laminas.dev"
-    },
-    "config": {
-        "sort-packages": true
-    },
-    "extra": {
-    },
+    "license": "BSD-3-Clause",
     "require": {
         "php": "^7.3 || ~8.0.0",
         "aura/di": "^3.4 || ^4.0"
+    },
+    "conflict": {
+        "container-interop/container-interop": "<1.2.0"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.1.4",
@@ -34,9 +25,10 @@
         "psalm/plugin-phpunit": "^0.15.1",
         "vimeo/psalm": "^4.6"
     },
-    "conflict": {
-        "container-interop/container-interop": "<1.2.0"
+    "config": {
+        "sort-packages": true
     },
+    "extra": {},
     "autoload": {
         "psr-4": {
             "Laminas\\AuraDi\\Config\\": "src/"
@@ -56,5 +48,12 @@
         "cs-fix": "phpcbf",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+    },
+    "support": {
+        "issues": "https://github.com/laminas/laminas-auradi-config/issues",
+        "forum": "https://discourse.laminas.dev",
+        "chat": "https://laminas.dev/chat",
+        "source": "https://github.com/laminas/laminas-auradi-config",
+        "rss": "https://github.com/laminas/laminas-auradi-config/releases.atom"
     }
 }
