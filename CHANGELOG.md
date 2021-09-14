@@ -26,27 +26,28 @@ Versions prior to 0.2.0 were released as the package "webimpress/zend-auradi-con
 
 - Nothing.
 
-## 2.0.1 - 2020-04-21
-
-### Added
-
-- Nothing.
-
-### Changed
-
-- Nothing.
-
-### Deprecated
-
-- Nothing.
+## 2.0.1 - 2021-09-14
 
 ### Removed
 
 - [#5](https://github.com/laminas/laminas-auradi-config/pull/5) removes redundant dependency - `laminas/laminas-zendframework-bridge`.
 
-### Fixed
 
-- Nothing.
+-----
+
+### Release Notes for [2.0.1](https://github.com/laminas/laminas-auradi-config/milestone/2)
+
+
+
+### 2.0.1
+
+- Total issues resolved: **0**
+- Total pull requests resolved: **1**
+- Total contributors: **1**
+
+#### Bug
+
+ - [5: Hotfix: removes redundant dependency laminas/laminas-zendframework-bridge](https://github.com/laminas/laminas-auradi-config/pull/5) thanks to @michalbundyra
 
 ## 2.0.0 - 2020-04-21
 
