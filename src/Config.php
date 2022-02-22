@@ -58,10 +58,10 @@ class Config implements ContainerConfigInterface
      * - If invokables are defined, maps each to lazyNew the target.
      * - If aliases are defined, maps each to lazyGet the target.
      */
-    public function define(Container $container): void
+    public function define(Container $di): void
     {
         // Convert config to an object and inject it
-        $container->set('config', new ArrayObject($this->config, ArrayObject::ARRAY_AS_PROPS));
+        $di->set('config', new ArrayObject($this->config, ArrayObject::ARRAY_AS_PROPS));
 
         if (
             empty($this->config['dependencies'])
@@ -80,7 +80,7 @@ class Config implements ContainerConfigInterface
             isset($dependencies['delegators'])
             && is_array($dependencies['delegators'])
         ) {
-            $dependencies = $this->marshalDelegators($container, $dependencies);
+            $dependencies = $this->marshalDelegators($di, $dependencies);
         }
 
         // Inject services
@@ -89,7 +89,7 @@ class Config implements ContainerConfigInterface
             && is_array($dependencies['services'])
         ) {
             foreach ($dependencies['services'] as $name => $service) {
-                $container->set($name, $service);
+                $di->set($name, $service);
             }
         }
 
@@ -100,13 +100,13 @@ class Config implements ContainerConfigInterface
         ) {
             foreach ($dependencies['factories'] as $service => $factory) {
                 if (is_callable($factory)) {
-                    $container->set($service, $container->lazy($factory, $container, $service));
+                    $di->set($service, $di->lazy($factory, $di, $service));
                     continue;
                 }
 
-                $container->set(
+                $di->set(
                     $service,
-                    $container->lazy(static function (ContainerInterface $container, string $service) use ($factory) {
+                    $di->lazy(static function (ContainerInterface $di, string $service) use ($factory) {
                         if (! is_string($factory) || ! class_exists($factory)) {
                             throw new ServiceNotFound(sprintf(
                                 'Service %s cannot be initialized by factory %s',
@@ -125,8 +125,8 @@ class Config implements ContainerConfigInterface
                             ));
                         }
 
-                        return $instance($container, $service);
-                    }, $container, $service)
+                        return $instance($di, $service);
+                    }, $di, $service)
                 );
             }
         }
@@ -138,10 +138,10 @@ class Config implements ContainerConfigInterface
         ) {
             foreach ($dependencies['invokables'] as $service => $class) {
                 if (is_string($service) && $service !== $class) {
-                    $container->set($service, $container->lazyGet($class));
+                    $di->set($service, $di->lazyGet($class));
                 }
 
-                $container->set($class, $container->lazy(static function () use ($class) {
+                $di->set($class, $di->lazy(static function () use ($class) {
                     if (! is_string($class) || ! class_exists($class)) {
                         throw new ServiceNotFound(sprintf(
                             'Service %s cannot be created',
@@ -164,7 +164,7 @@ class Config implements ContainerConfigInterface
                     continue;
                 }
 
-                $container->set($alias, $container->lazyGet($target));
+                $di->set($alias, $di->lazyGet($target));
             }
         }
     }
@@ -172,7 +172,7 @@ class Config implements ContainerConfigInterface
     /**
      * This method is purposely a no-op.
      */
-    public function modify(Container $container): void
+    public function modify(Container $di): void
     {
     }
 
@@ -182,7 +182,7 @@ class Config implements ContainerConfigInterface
      * @return array List of dependencies minus any services, factories, or
      *     invokables that match services using delegator factories.
      */
-    private function marshalDelegators(Container $container, array $dependencies): array
+    private function marshalDelegators(Container $di, array $dependencies): array
     {
         foreach ($dependencies['delegators'] as $service => $delegatorNames) {
             $factory = null;
@@ -190,7 +190,7 @@ class Config implements ContainerConfigInterface
             if (isset($dependencies['factories'][$service])) {
                 // Marshal from factory
                 $serviceFactory = $dependencies['factories'][$service];
-                $factory        = static function () use ($service, $serviceFactory, $container) {
+                $factory        = static function () use ($service, $serviceFactory, $di) {
                     if (is_callable($serviceFactory)) {
                         $factory = $serviceFactory;
                     } elseif (is_string($serviceFactory) && ! class_exists($serviceFactory)) {
@@ -211,7 +211,7 @@ class Config implements ContainerConfigInterface
                         ));
                     }
 
-                    return $factory($container, $service);
+                    return $factory($di, $service);
                 };
                 unset($dependencies['factories'][$service]);
             }
@@ -220,7 +220,7 @@ class Config implements ContainerConfigInterface
                 while (false !== ($key = array_search($service, $dependencies['invokables'], true))) {
                     // Marshal from invokable
                     $class   = $dependencies['invokables'][$key];
-                    $factory = static function () use ($class) {
+                    $factory = static function () use ($class): object {
                         if (! is_string($class) || ! class_exists($class)) {
                             throw new ServiceNotFound(sprintf(
                                 'Service %s cannot be created',
@@ -243,9 +243,9 @@ class Config implements ContainerConfigInterface
             }
 
             $delegatorFactory = new DelegatorFactory($delegatorNames, $factory);
-            $container->set(
+            $di->set(
                 $service,
-                $container->lazy([$delegatorFactory, 'build'], $container, $service)
+                $di->lazy([$delegatorFactory, 'build'], $di, $service)
             );
         }
 
