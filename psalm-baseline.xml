@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.6.3@f1a840727dd756899eee2f1f9ea443e265a4763f">
+<files psalm-version="4.21.0@d8bec4c7aaee111a532daec32fb09de5687053d1">
   <file src="src/Config.php">
-    <MissingClosureReturnType occurrences="3">
-      <code>static function () use ($class) {</code>
-      <code>static function () use ($service, $serviceFactory, $container) {</code>
-      <code>static function (ContainerInterface $container, string $service) use ($factory) {</code>
-    </MissingClosureReturnType>
+    <MissingClosureReturnType occurrences="2"/>
     <MixedArgument occurrences="10">
       <code>$class</code>
       <code>$class</code>
