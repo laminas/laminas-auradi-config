@@ -14,8 +14,7 @@ class ContainerFactoryTest extends TestCase
 {
     use ProphecyTrait;
 
-    /** @var ContainerFactory */
-    private $factory;
+    private ContainerFactory $factory;
 
     protected function setUp(): void
     {

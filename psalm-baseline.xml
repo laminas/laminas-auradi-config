@@ -56,7 +56,7 @@
       <code>gettype($delegator)</code>
     </DocblockTypeContradiction>
     <MissingClosureReturnType occurrences="1">
-      <code>static function () use ($instance) {</code>
+      <code>static fn() => $instance</code>
     </MissingClosureReturnType>
     <MixedAssignment occurrences="1">
       <code>$instance</code>
