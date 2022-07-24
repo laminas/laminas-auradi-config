@@ -11,8 +11,7 @@ use PHPUnit\Framework\TestCase;
 
 class ConfigTest extends TestCase
 {
-    /** @var ContainerBuilder */
-    private $builder;
+    private ContainerBuilder $builder;
 
     protected function setUp(): void
     {

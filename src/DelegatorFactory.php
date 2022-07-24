@@ -42,7 +42,7 @@ class DelegatorFactory
      * @var array Either delegator factory names or instances.
      * @psalm-var list<class-string|callable>
      */
-    private $delegators;
+    private array $delegators;
 
     /** @var callable */
     private $factory;
@@ -81,9 +81,7 @@ class DelegatorFactory
             }
 
             $instance = $delegator($container, $serviceName, $callback);
-            $callback = static function () use ($instance) {
-                return $instance;
-            };
+            $callback = static fn() => $instance;
         }
 
         return $instance ?? $callback();

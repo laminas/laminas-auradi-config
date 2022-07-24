@@ -31,8 +31,7 @@ use function var_export;
  */
 class Config implements ContainerConfigInterface
 {
-    /** @var array */
-    private $config;
+    private array $config;
 
     public function __construct(array $config)
     {
