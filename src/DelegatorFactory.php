@@ -8,10 +8,8 @@ use Aura\Di\Container;
 use Aura\Di\Exception\ServiceNotFound;
 
 use function class_exists;
-use function get_class;
-use function gettype;
+use function get_debug_type;
 use function is_callable;
-use function is_object;
 use function is_string;
 use function sprintf;
 
@@ -76,7 +74,7 @@ class DelegatorFactory
             if (! is_callable($delegator)) {
                 throw new ServiceNotFound(sprintf(
                     'Delegator of type %s is not callable',
-                    is_object($delegator) ? get_class($delegator) : gettype($delegator)
+                    get_debug_type($delegator),
                 ));
             }
 
