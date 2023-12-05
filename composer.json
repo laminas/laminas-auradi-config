@@ -34,8 +34,8 @@
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.5.0",
-        "laminas/laminas-container-config-test": "^0.8.0",
-        "phpunit/phpunit": "^9.5.26",
+        "laminas/laminas-container-config-test": "^1.0.0",
+        "phpunit/phpunit": "^10.5",
         "psalm/plugin-phpunit": "^0.18.3",
         "vimeo/psalm": "^5.17"
     },
