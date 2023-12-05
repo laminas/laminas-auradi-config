@@ -1,7 +1,10 @@
 # laminas-auradi-config
 
-[![Build Status](https://travis-ci.com/laminas/laminas-auradi-config.svg?branch=master)](https://travis-ci.com/laminas/laminas-auradi-config)
-[![Coverage Status](https://coveralls.io/repos/github/laminas/laminas-auradi-config/badge.svg?branch=master)](https://coveralls.io/github/laminas/laminas-auradi-config?branch=master)
+> ## Abandoned
+>
+> This package is **abandoned** and will receive no further development!
+>
+> See the Technical Steering Committee [meeting minutes](https://github.com/laminas/technical-steering-committee/blob/main/meetings/minutes/2023-12-04-TSC-Minutes.md)
 
 > ## 🇷🇺 Русским гражданам
 >
