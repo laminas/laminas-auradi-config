@@ -30,7 +30,7 @@
     "extra": {},
     "require": {
         "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
-        "aura/di": "^3.4 || ^4.0"
+        "aura/di": "^4.2"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.5.0",
