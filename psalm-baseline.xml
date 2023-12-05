@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<files psalm-version="4.30.0@d0bc6e25d89f649e4f36a534f330f8bb4643dd69">
+<files psalm-version="5.17.0@c620f6e80d0abfca532b00bda366062aaedf6e5d">
   <file src="src/Config.php">
-    <MissingClosureReturnType occurrences="2"/>
-    <MixedArgument occurrences="10">
+    <MissingClosureReturnType>
+      <code>static function () use ($service, $serviceFactory, $di) {</code>
+      <code>static function (ContainerInterface $di, string $service) use ($factory) {</code>
+    </MissingClosureReturnType>
+    <MixedArgument>
       <code>$class</code>
       <code>$class</code>
       <code>$delegatorNames</code>
-      <code>$dependencies['invokables']</code>
+      <code><![CDATA[$dependencies['invokables']]]></code>
       <code>$service</code>
       <code>$service</code>
       <code>$service</code>
@@ -14,29 +17,29 @@
       <code>$serviceFactory</code>
       <code>$target</code>
     </MixedArgument>
-    <MixedArgumentTypeCoercion occurrences="3">
+    <MixedArgumentTypeCoercion>
       <code>$name</code>
       <code>$service</code>
       <code>$service</code>
     </MixedArgumentTypeCoercion>
-    <MixedArrayAccess occurrences="2">
-      <code>$dependencies['invokables'][$key]</code>
-      <code>$dependencies['invokables'][$key]</code>
+    <MixedArrayAccess>
+      <code><![CDATA[$dependencies['invokables'][$key]]]></code>
+      <code><![CDATA[$dependencies['invokables'][$key]]]></code>
     </MixedArrayAccess>
-    <MixedArrayAssignment occurrences="1">
-      <code>$dependencies['aliases'][$key]</code>
+    <MixedArrayAssignment>
+      <code><![CDATA[$dependencies['aliases'][$key]]]></code>
     </MixedArrayAssignment>
-    <MixedArrayOffset occurrences="4">
-      <code>$dependencies['aliases'][$key]</code>
-      <code>$dependencies['factories'][$service]</code>
-      <code>$dependencies['invokables'][$key]</code>
-      <code>$dependencies['invokables'][$key]</code>
+    <MixedArrayOffset>
+      <code><![CDATA[$dependencies['aliases'][$key]]]></code>
+      <code><![CDATA[$dependencies['factories'][$service]]]></code>
+      <code><![CDATA[$dependencies['invokables'][$key]]]></code>
+      <code><![CDATA[$dependencies['invokables'][$key]]]></code>
     </MixedArrayOffset>
-    <MixedAssignment occurrences="10">
+    <MixedAssignment>
       <code>$class</code>
       <code>$class</code>
       <code>$delegatorNames</code>
-      <code>$dependencies['aliases'][$key]</code>
+      <code><![CDATA[$dependencies['aliases'][$key]]]></code>
       <code>$factory</code>
       <code>$key</code>
       <code>$service</code>
@@ -44,7 +47,7 @@
       <code>$serviceFactory</code>
       <code>$target</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="4">
+    <MixedMethodCall>
       <code>new $class()</code>
       <code>new $class()</code>
       <code>new $factory()</code>
@@ -52,18 +55,21 @@
     </MixedMethodCall>
   </file>
   <file src="src/DelegatorFactory.php">
-    <MissingClosureReturnType occurrences="1">
-      <code>static fn() =&gt; $instance</code>
+    <MissingClosureReturnType>
+      <code><![CDATA[static fn() => $instance]]></code>
     </MissingClosureReturnType>
-    <MixedAssignment occurrences="1">
+    <MixedAssignment>
       <code>$instance</code>
     </MixedAssignment>
-    <MixedMethodCall occurrences="1">
+    <MixedMethodCall>
       <code>new $delegatorName()</code>
     </MixedMethodCall>
+    <PossiblyUnusedMethod>
+      <code>build</code>
+    </PossiblyUnusedMethod>
   </file>
   <file src="test/ConfigTest.php">
-    <MixedMethodCall occurrences="1">
+    <MixedMethodCall>
       <code>getArrayCopy</code>
     </MixedMethodCall>
   </file>

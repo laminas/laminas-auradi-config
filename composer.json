@@ -24,20 +24,20 @@
         },
         "sort-packages": true,
         "platform": {
-            "php": "8.0.99"
+            "php": "8.1.99"
         }
     },
     "extra": {},
     "require": {
-        "php": "~8.0.0 || ~8.1.0 || ~8.2.0",
-        "aura/di": "^3.4 || ^4.0"
+        "php": "~8.1.0 || ~8.2.0 || ~8.3.0",
+        "aura/di": "^4.2"
     },
     "require-dev": {
         "laminas/laminas-coding-standard": "~2.5.0",
-        "laminas/laminas-container-config-test": "^0.8.0",
-        "phpunit/phpunit": "^9.5.26",
+        "laminas/laminas-container-config-test": "^1.0.0",
+        "phpunit/phpunit": "^10.5",
         "psalm/plugin-phpunit": "^0.18.3",
-        "vimeo/psalm": "^5.0"
+        "vimeo/psalm": "^5.17"
     },
     "conflict": {
         "container-interop/container-interop": "<1.2.0"
@@ -59,6 +59,7 @@
         ],
         "cs-check": "phpcs",
         "cs-fix": "phpcbf",
+        "static-analysis": "psalm --shepherd --stats",
         "test": "phpunit --colors=always",
         "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
     }
